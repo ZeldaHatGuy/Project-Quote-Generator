@@ -7,12 +7,32 @@ const quoteText = document.getElementById('quote');
 const authorText = document.getElementById('author');
 const twitterBtn = document.getElementById('twitter');
 const newQuoteBtn = document.getElementById('new-quote');
+const loader = document.getElementById('loader');
 
 
-let apiQuotes
+let apiQuotes;
+
+
+
+// Show Loading
+
+
+function loading() {
+    loader.hidden = false;
+    quoteContainer.hidden = true;
+
+}
+
+// Hide Loading
+
+function complete(){
+    loader.hidden = true;
+    quoteContainer.hidden = false;
+}
 
 // grab random quote from fetched quotes
 function newQuote() {
+    loading();
     const quote = apiQuotes[Math.floor(Math.random() * apiQuotes.length)];
     authorText.textContent = !quote.author ? "Unknown": quote.author
 
@@ -23,6 +43,7 @@ function newQuote() {
 
     }
     quoteText.textContent = quote.text;
+    complete();
 } 
 
 // fetch quotes from api.
@@ -54,6 +75,7 @@ twitterBtn.addEventListener('click', tweetQuote )
 
 // On Load
 
+// getQuotes();
+
+
 getQuotes();
-
-
